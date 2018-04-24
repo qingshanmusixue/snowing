@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="SHORTCUT ICON" href="snow.ico"/>
+    <title>雪</title>
+    <link href="css/demo.css" rel="stylesheet">
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script>
+        //var flakeColor = "#fff";//雪片的颜色
+        function getColor() {
+            var r = Math.floor(Math.random() * 256)
+            var g = Math.floor(Math.random() * 256)
+            var b = Math.floor(Math.random() * 256)
+            return "rgb(" + r + "," + g + "," + b + ")"
+        }
+        var newOn = 100 //间隔0.1s产生一个雪片，单位是毫秒
+        var flake = $("<div></div>").css("position", "absolute").html("❄"); //设置雪片对象
+        $(function () {
+            var dwidth = $(document).width() //获取到页面的宽度
+            var dheight = $(document).height() //获取到页面的高度
+            setInterval(function () { //间隔多长时间产生一个雪片，并让雪片从上面票到下面
+                var startLeft = Math.random() * dwidth //雪片产生的时候距离浏览器的left值
+                var endLeft = Math.random() * dwidth //雪片下落后距离浏览器的left
+                var flakeSize = 5 + 50 * Math.random() //雪片随机的大小
+                var durationTime = 4000 + 7000 * Math.random() //雪片从上面落下来所需的时间
+                var startOpacity = 0.7 + 0.3 * Math.random() //雪片一开始的时候的透明度
+                var endOpacity = 0.4 + 0.3 * Math.random() //雪片下落后的透明度
+                flake.clone().appendTo($("body")).css({ //雪片对象拷贝一份加到网页中去，经过随机的时间，从一开始的状态变成下落后的状态
+                    "left": startLeft,
+                    "font-size": flakeSize,
+                    //"color": flakeColor,
+                    "color": getColor(),
+                    "top": "-55px",
+                    "opacity": startOpacity
+                }).animate({
+                    "top": dheight,
+                    "left": endLeft,
+                    "opacity": endOpacity
+                }, durationTime, function () {
+                    $(this).remove() //动画执行完之后，吧雪片从body中删掉
+                })
+            }, newOn)
+        })
+        document.ondragstart = function (event) {
+            return false
+        }
+    </script>
+</head>
+
+<body ondragstart="return false;">
+    <div "position: absolute;z-index:-1;width: 100%;height: 100%;">
+        <audio src="./123.mp3"></audio>
+    </div>
+</body>
+
+</html>

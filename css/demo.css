@@ -1,0 +1,17 @@
+body{
+    background-color:#242526;
+	overflow: hidden;
+	cursor: default;
+}
+#d1
+{
+	background-image:url("2.jpg") ;
+	background-repeat:no-repeat ;
+	background-size: cover;
+}
+::selection {
+	background:rgba(0, 0, 0, 0);
+}
+audio {
+	display: none;
+}
